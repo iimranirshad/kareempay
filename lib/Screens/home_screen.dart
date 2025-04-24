@@ -8,6 +8,7 @@ import 'package:karim_pay/Screens/ijara_screen.dart';
 import 'package:karim_pay/Screens/mudarabah_screen.dart';
 import 'package:karim_pay/Screens/murabaha_screen.dart';
 import 'package:karim_pay/Screens/notification_screen.dart';
+import 'package:karim_pay/Screens/payment_screen.dart';
 import 'package:karim_pay/Screens/qard_hasan_screen.dart';
 import 'package:karim_pay/Screens/termsAndConditions_Screen.dart';
 import 'package:karim_pay/Widgets/filter_search.dart';
@@ -361,9 +362,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   FilterSearchButton(
                       onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Risk Level is High')),
-                        );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PaymentScreen(),
+                            ));
                       },
                       height: 6.h,
                       width: 28.w,
