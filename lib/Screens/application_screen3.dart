@@ -23,6 +23,7 @@ import '../Widgets/credit_score.dart';
 import '../Widgets/menu_textfield.dart';
 import 'edit_profile.dart';
 import 'notification_screen.dart';
+
 class ApplicationScreen3 extends StatefulWidget {
   const ApplicationScreen3({super.key});
 
@@ -33,7 +34,7 @@ class ApplicationScreen3 extends StatefulWidget {
 class _ApplicationScreen3State extends State<ApplicationScreen3> {
   String? _status;
   Uint8List? _imageBytes;
-  int? prediction =0;
+  int? prediction = 0;
   String _subtitle = 'Upload File';
   String _subtitle2 = 'Upload File';
   String _subtitle3 = 'Upload File';
@@ -48,6 +49,7 @@ class _ApplicationScreen3State extends State<ApplicationScreen3> {
   File? _file4;
   File? _file5;
   File? _file6;
+
   bool _acceptCondition = false;
   final TextEditingController _homeTypeController = TextEditingController();
   final TextEditingController _empLengthController = TextEditingController();
@@ -61,11 +63,7 @@ class _ApplicationScreen3State extends State<ApplicationScreen3> {
   final TextEditingController _leaseduration = TextEditingController();
   final TextEditingController _loanTime = TextEditingController();
 
-  final List<String> _homeTypes = [
-    'OWN',
-    'RENT',
-    'MORTGAGE'
-  ];
+  final List<String> _homeTypes = ['OWN', 'RENT', 'MORTGAGE'];
   final List<String> _availingLoan = [
     'Y',
     'N',
@@ -103,7 +101,7 @@ class _ApplicationScreen3State extends State<ApplicationScreen3> {
       "Home": _selectedHomeType,
       "Emp_length": int.parse(_selectedEmpLength),
       "Amount": int.parse(_amountController.text),
-      "Default":_selectedLoan
+      "Default": _selectedLoan
     });
     try {
       final response = await http.post(
@@ -112,21 +110,25 @@ class _ApplicationScreen3State extends State<ApplicationScreen3> {
           "Content-Type": "application/json",
         },
         body: body,
-      );final response2 = await http.post(apiUrl2, headers: {"Content-Type": "application/json"}, body: jsonEncode({
-        "text":_purposeController.text
-      }));
+      );
+      final response2 = await http.post(apiUrl2,
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode({"text": _purposeController.text}));
       var request = http.MultipartRequest('POST', apiUrl3);
-      request.files.add(await http.MultipartFile.fromPath('image', _file1!.path));
+      request.files
+          .add(await http.MultipartFile.fromPath('image', _file1!.path));
       var streamedResponse = await request.send();
       var response3 = await http.Response.fromStream(streamedResponse);
-      if (response.statusCode == 200 || response2.statusCode == 200 || response3.statusCode ==200) {
+      if (response.statusCode == 200 ||
+          response2.statusCode == 200 ||
+          response3.statusCode == 200) {
         final data = jsonDecode(response.body);
         final data2 = jsonDecode(response2.body);
         final jsonResponse = json.decode(response3.body);
         print("API Response: $data");
         prediction = data['prediction'];
         prediction = data2['prediction'];
-        setState((){
+        setState(() {
           _status = jsonResponse['status'];
         });
         // You can show result or navigate
@@ -134,9 +136,16 @@ class _ApplicationScreen3State extends State<ApplicationScreen3> {
           SnackBar(content: Text("Prediction: ${data['prediction'] ?? 'N/A'}")),
         );
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Prediction: ${data2['prediction'] ?? 'N/A'}")),
+          SnackBar(
+              content: Text("Prediction: ${data2['prediction'] ?? 'N/A'}")),
         );
-        Navigator.push(context, PageTransition(type: PageTransitionType.fade,child: ApplicationSubmission(prediction: prediction,)));
+        Navigator.push(
+            context,
+            PageTransition(
+                type: PageTransitionType.fade,
+                child: ApplicationSubmission(
+                  prediction: prediction,
+                )));
       } else {
         print("API Error: ${response.statusCode}");
         ScaffoldMessenger.of(context).showSnackBar(
@@ -195,11 +204,11 @@ class _ApplicationScreen3State extends State<ApplicationScreen3> {
         'income': _incomeController.text,
         'empLength': _selectedEmpLength,
         'amount': _amountController.text,
-        'creditScore':c_score,
+        'creditScore': c_score,
         'timeforloan': _loanTime.text,
         'purpose': _purposeController.text,
         'asset': _assetlease.text,
-        'availing loan':_loanController.text,
+        'availing loan': _loanController.text,
         'timestamp': FieldValue.serverTimestamp(),
         'idFront': idFront,
         'idBack': idBack,
@@ -211,13 +220,17 @@ class _ApplicationScreen3State extends State<ApplicationScreen3> {
       await FirebaseFirestore.instance.collection('notifications').add({
         'uid': uid,
         'title': 'Application Submitted',
-        'message': prediction == 1?'Your application was successfully submitted.':'Your application can not be submitted.',
+        'message': prediction == 1
+            ? 'Your application was successfully submitted.'
+            : 'Your application can not be submitted.',
         'timestamp': FieldValue.serverTimestamp(),
         'isRead': false, // Optional: used to mark as read later
       });
       Navigator.push(
         context,
-        PageTransition(type: PageTransitionType.fade, child: ApplicationSubmission(prediction: prediction)),
+        PageTransition(
+            type: PageTransitionType.fade,
+            child: ApplicationSubmission(prediction: prediction)),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -227,13 +240,16 @@ class _ApplicationScreen3State extends State<ApplicationScreen3> {
       setState(() => _isLoading = false);
     }
   }
+
   void initState() {
     super.initState();
     _loadUserProfileImage();
   }
+
   Future<void> _loadUserProfileImage() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
-    final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final doc =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
     if (doc.exists && doc.data()!['profileImage'] != null) {
       setState(() {
         _imageBytes = base64Decode(doc.data()!['profileImage']);
@@ -256,6 +272,7 @@ class _ApplicationScreen3State extends State<ApplicationScreen3> {
     _loanTime.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -472,4 +489,5 @@ class _ApplicationScreen3State extends State<ApplicationScreen3> {
     );
 
   }
+
 }

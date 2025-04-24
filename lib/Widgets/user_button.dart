@@ -8,10 +8,11 @@ class UserButton extends StatelessWidget {
   final Color text_color;
   final double height;
   final double width;
+  double? textsize = 1;
   double border;
   bool flag;
   final VoidCallback? onTap;
-  UserButton({super.key,required this.color,required this.text,required this.text_color,required this.height,required this.width,this.flag=false,this.border=3,this.onTap});
+  UserButton({super.key,required this.color,required this.text,required this.text_color,required this.height,required this.width,this.flag=false,this.border=3,this.onTap, this.textsize});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class UserButton extends StatelessWidget {
               child: Text(
                 text,
                 style: GoogleFonts.poppins(
-                  fontSize: 20.sp,
+                  fontSize: textsize == 1 ? 20.sp:textsize,
                   fontWeight: FontWeight.w600,
                   color: text_color,
                 ),

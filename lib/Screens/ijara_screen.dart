@@ -51,12 +51,12 @@ class _IjaraScreenState extends State<IjaraScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Hi, Welcome Back',style: GoogleFonts.poppins(
-                fontSize: 18.sp,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w600,
                 color: secondary
             ),),
             Text('Good Morning',style: GoogleFonts.poppins(
-                fontSize: 15.sp,
+                fontSize: 12.sp,
                 fontWeight: FontWeight.w600,
                 color: secondary
             )),
@@ -130,7 +130,7 @@ class _IjaraScreenState extends State<IjaraScreen> {
                 Subtext(text: "View asset tracking and maintenance of the history\nfor their lease."),
                 Subtext(text: 'Choose lease tenure, rental value, and add\ninsurance protection.'),
                 SizedBox(height: 2.h,),
-                Center(child: GestureDetector(child: UserButton(color: Color(0xFFD3D3D3), text: 'Application Portal ', text_color: primary, height: 7, width: 32,flag: true,border: 5,),onTap: (){
+                Center(child: GestureDetector(child: UserButton(color: Color(0xFFD3D3D3), text: 'Application Portal ', text_color: primary, height: 7, width: 32,flag: true,border: 5,textsize: 16,),onTap: (){
                   Navigator.push(context, PageTransition(type: PageTransitionType.fade,child: ApplicationScreen3()));
                 },))
               ],

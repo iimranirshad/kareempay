@@ -47,7 +47,7 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
         textAlign: TextAlign.start,
         textInputAction: TextInputAction.none,
         readOnly: true,  // prevent manual typing — dropdown only
-        style: GoogleFonts.poppins(fontSize: 18.sp),
+        style: GoogleFonts.poppins(fontSize: 14.sp),
         decoration: InputDecoration(
           fillColor: const Color(0xffD3D3D3),
           filled: true,
@@ -72,7 +72,7 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
                   value: value,
                   child: Text(
                     value,
-                    style: GoogleFonts.poppins(fontSize: 16.sp, color: Colors.black),
+                    style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black),
                   ),
                 );
               }).toList(),

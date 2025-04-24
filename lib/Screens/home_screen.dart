@@ -121,13 +121,13 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               'Hi, Welcome Back',
               style: GoogleFonts.poppins(
-                  fontSize: 18.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w600,
                   color: secondary),
             ),
             Text('Good Morning',
                 style: GoogleFonts.poppins(
-                    fontSize: 15.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
                     color: secondary)),
           ],
@@ -321,6 +321,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           FilterTextField(
                             hintText: 'Credit Score',
                             controller: creditScoreController,
+                            readOnly: true,
                           ),
                           SizedBox(
                             width: 0.5.h,
@@ -328,6 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           FilterTextField(
                             hintText: 'Loan Amount\$',
                             controller: loanAmountController,
+                            readOnly: true,
                           ),
                         ],
                       ),
@@ -339,6 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           FilterTextField(
                             hintText: 'Risk Level%',
                             controller: riskLevelController,
+                            readOnly: true,
                           ),
                           SizedBox(
                             width: 0.5.h,

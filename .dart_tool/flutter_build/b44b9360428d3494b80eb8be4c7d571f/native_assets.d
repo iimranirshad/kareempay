@@ -1,0 +1,1 @@
+ C:\\Users\\Neonixx\\Desktop\\New\ folder\\project\\karim_Pay1\\karim_Pay\\.dart_tool\\flutter_build\\b44b9360428d3494b80eb8be4c7d571f\\native_assets.yaml: 
