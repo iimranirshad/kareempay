@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1015298444315",
+    "project_id": "karimpay-6dbf5",
+    "storage_bucket": "karimpay-6dbf5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015298444315:android:2defe55259cff3f3927cbe",
+        "android_client_info": {
+          "package_name": "com.example.karim_pay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBASc96xPOff9-I1f28oYw5TsC3-jwn0jA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015298444315:android:a87b525dd57544ce927cbe",
+        "android_client_info": {
+          "package_name": "com.karimpay.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBASc96xPOff9-I1f28oYw5TsC3-jwn0jA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
