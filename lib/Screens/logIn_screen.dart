@@ -133,49 +133,67 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: 7.h,
                                 ),
                                 Center(
-                                    child: UserButton(
-                                        color: primary,
-                                        text: 'Log In',
-                                        text_color: secondary,
-                                        height: 5.5,
-                                        width: 25,
-                                        onTap: () async {
-                                          try {
-                                            UserCredential userCredential =
-                                                await FirebaseAuth.instance
-                                                    .signInWithEmailAndPassword(
-                                              email: textController.text.trim(),
-                                              password: passwordController.text
-                                                  .trim(),
-                                            );
+                                  child: UserButton(
+                                      color: primary,
+                                      text: 'Log In',
+                                      text_color: secondary,
+                                      height: 5.5,
+                                      width: 25,
+                                      onTap: () async {
+                                        try {
+                                          UserCredential userCredential =
+                                              await FirebaseAuth.instance
+                                                  .signInWithEmailAndPassword(
+                                            email: textController.text.trim(),
+                                            password:
+                                                passwordController.text.trim(),
+                                          );
 
-                                            // Navigate to HomeScreen on successful login
-                                            Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                  type: PageTransitionType.fade,
-                                                  child: BottomNavBar()),
-                                            );
-                                          } on FirebaseAuthException catch (e) {
-                                            String errorMessage =
-                                                'Login failed';
+                                          String uid = userCredential.user!.uid;
 
-                                            if (e.code == 'user-not-found') {
-                                              errorMessage =
-                                                  'No user found for that email.';
-                                            } else if (e.code ==
-                                                'wrong-password') {
-                                              errorMessage =
-                                                  'Wrong password provided.';
-                                            }
+                                          // Fetch policy verification flag
+                                          DocumentSnapshot userDoc =
+                                              await FirebaseFirestore.instance
+                                                  .collection('users')
+                                                  .doc(uid)
+                                                  .get();
 
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                  content: Text(errorMessage)),
-                                            );
+                                          bool flag = false;
+                                          if (userDoc.exists) {
+                                            final data = userDoc.data()
+                                                as Map<String, dynamic>;
+                                            flag = data['policyverification'] ==
+                                                true;
                                           }
-                                        })),
+
+                                          // Navigate to BottomNavBar with the flag
+                                          Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: BottomNavBar(flag: flag),
+                                            ),
+                                          );
+                                        } on FirebaseAuthException catch (e) {
+                                          String errorMessage = 'Login failed';
+
+                                          if (e.code == 'user-not-found') {
+                                            errorMessage =
+                                                'No user found for that email.';
+                                          } else if (e.code ==
+                                              'wrong-password') {
+                                            errorMessage =
+                                                'Wrong password provided.';
+                                          }
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                content: Text(errorMessage)),
+                                          );
+                                        }
+                                      }),
+                                ),
                                 SizedBox(
                                   height: 1.5.h,
                                 ),
